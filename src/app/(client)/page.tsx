@@ -1,6 +1,11 @@
 "use client";
 import Electronics from "@/components/Electronics";
+import Footware from "@/components/Footware";
 import HomePageContent from "@/components/HomePageContent";
+import KidsToys from "@/components/KidsToys";
+import MensCloths from "@/components/MensCloths";
+import Nightlamp from "@/components/Nightlamp";
+import WomenCloths from "@/components/WomenCloths";
 import { useSession } from "next-auth/react";
 import React from "react";
 
@@ -21,6 +26,11 @@ export default function Home() {
     <div>
       <HomePageContent />
       <Electronics />
+      <MensCloths />
+      <Footware />
+      <WomenCloths />
+      <KidsToys />
+      <Nightlamp />
     </div>
   );
 }

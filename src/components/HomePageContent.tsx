@@ -7,32 +7,32 @@ function HomePageContent() {
     {
       name: "Electronics",
       image: "/accessories.png",
-      link: "/p",
+      link: "/Electronics",
     },
     {
       name: "Mens Clothing",
       image: "/menware.png",
-      link: "/p",
+      link: "/MensCloths",
     },
     {
       name: "Footwear",
       image: "/footware.png",
-      link: "/p",
+      link: "/Footware",
     },
     {
       name: "Womens Clothing",
       image: "/ladiesware.png",
-      link: "/p",
+      link: "/WomenCloths",
     },
     {
       name: "Kids Toys",
       image: "/kidstoys.png",
-      link: "/p",
+      link: "/KidsToys",
     },
     {
       name: "Night Lamp",
       image: "/nightlamps.png",
-      link: "/p",
+      link: "/Nightlamp",
     },
   ];
   const poster = [
