@@ -1,5 +1,5 @@
 "use client";
-import Navbar from "@/components/Navbar";
+import HomePageContent from "@/components/HomePageContent";
 import { useSession } from "next-auth/react";
 import React from "react";
 
@@ -15,11 +15,10 @@ export default function Home() {
   } else {
     // console.log(session);
   }
+
   return (
     <div>
-      <div className="m-0 p-0">
-        <Navbar />
-      </div>
+      <HomePageContent />
     </div>
   );
 }
