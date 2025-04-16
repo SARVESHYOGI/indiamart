@@ -1,4 +1,5 @@
 "use client";
+import Electronics from "@/components/Electronics";
 import HomePageContent from "@/components/HomePageContent";
 import { useSession } from "next-auth/react";
 import React from "react";
@@ -19,6 +20,7 @@ export default function Home() {
   return (
     <div>
       <HomePageContent />
+      <Electronics />
     </div>
   );
 }
