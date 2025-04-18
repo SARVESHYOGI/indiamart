@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "./ui/button";
@@ -5,8 +6,18 @@ import { Separator } from "@/components/ui/separator";
 import { Search } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { signOut } from "next-auth/react";
+import { useSession } from "next-auth/react";
 
 function Navbar() {
+  const handleclick = () => {
+    signOut({ callbackUrl: "/login" });
+  };
+
+  const { data: session } = useSession();
+  // console.log(session?.user?.name);
+  console.log(session?.user?._id);
+
   return (
     <div className="bg-gray-100">
       <div className="w-[75%] mx-auto flex h-16 items-center justify-between bg-yellow-100 text-white">
@@ -23,6 +34,9 @@ function Navbar() {
         </div>
         <div>
           <Button>Bulk Requirement</Button>
+        </div>
+        <div>
+          <Button onClick={handleclick}>Signout</Button>
         </div>
       </div>
       <Separator className="" />

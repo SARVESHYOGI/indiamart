@@ -6,36 +6,6 @@ cloudinary.v2.config({
     api_secret: process.env.CLOUDINARY_API_SECRET
 })
 
-// const uploadImage = async (file: File) => {
-//     try{
-//         console.log("Cloud Name:", process.env.CLOUD_NAME);
-//         console.log("API Key:", process.env.CLODINARY_API_KEY ? "Loaded" : "Missing");
-//         console.log("API Secret:", process.env.CLODINARY_API_SECRET_KEY ? "Loaded" : "Missing");
-//         if (!file) {
-//             throw new Error("No file provided");
-//         }
-
-//         const buffer = file.buffer || Buffer.from(await file.arrayBuffer());
-
-//         return new Promise((resolve, reject) => {
-//             const uploadStream = cloudinary.uploader.upload_stream(
-//                 { folder: "Event-management-web" },
-//                 (error, uploadResult) => {
-//                     if (error) {
-//                         reject(new Error(`Cloudinary Upload Failed: ${error.message}`));
-//                     } else {
-//                         resolve(uploadResult);
-//                     }
-//                 }
-//             );
-
-//             uploadStream.end(buffer); // Ensure buffer exists before calling .end()
-//         });
-//     }catch (error) {
-//         console.error("Error uploading image to Cloudinary", error);
-//         throw new Error("Image upload failed");
-//     }
-// }
 
 export const uploadImageToCloudinary = async (file: File): Promise<any> => {
     try {
@@ -64,7 +34,7 @@ const uploadImage = async (file: File): Promise<any> => {
 
         return new Promise((resolve, reject) => {
             const uploadStream = cloudinary.v2.uploader.upload_stream(
-                { folder: "Event-management-web" },
+                { folder: "INDIAMART" },
                 (error, uploadResult) => {
                     if (error) {
                         reject(new Error(`Cloudinary Upload Failed: ${error.message}`));
