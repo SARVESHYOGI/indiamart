@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
       secret: process.env.NEXTAUTH_SECRET,
     });
 
-    if (!token?._id) {
+    if (!token?._id || token?.role!=="seller") {
       return new Response("Unauthorized", { status: 401 });
     }
 
@@ -28,24 +28,7 @@ export async function POST(request: NextRequest) {
 
     const imageFiles = formData.getAll("images") as File[];
 
-    if (imageFiles.length === 0) {
-      return new Response("No images provided", { status: 400 });
-    }
-    if(!name){
-        return new Response("Name is required", { status: 400 });
-    }
-    if(!description){
-        return new Response("Description is required", { status: 400 });
-    }
-    if(isNaN(price)){
-        return new Response("Price is required", { status: 400 });
-    }
-    if(isNaN(quantity)){
-        return new Response("Quantity is required", { status: 400 });
-    }
-    if(!category){
-        return new Response("Category is required", { status: 400 });
-    }
+    
     if (
       !name ||
       !description ||
@@ -54,6 +37,24 @@ export async function POST(request: NextRequest) {
       !category ||
       imageFiles.length === 0
     ) {
+      if (imageFiles.length === 0) {
+        return new Response("No images provided", { status: 400 });
+      }
+      if(!name){
+          return new Response("Name is required", { status: 400 });
+      }
+      if(!description){
+          return new Response("Description is required", { status: 400 });
+      }
+      if(isNaN(price)){
+          return new Response("Price is required", { status: 400 });
+      }
+      if(isNaN(quantity)){
+          return new Response("Quantity is required", { status: 400 });
+      }
+      if(!category){
+          return new Response("Category is required", { status: 400 });
+      }
       return new Response("All fields are required", { status: 400 });
     }
 
