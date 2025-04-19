@@ -4,15 +4,15 @@ import { db } from "@/lib/db";
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { category: string } }
+  context : { params: { category: string } }
 ) {
   await db();
   try {
-    const param=await params;
-    const category = await  param.category;
+    const category = context.params.category;
 
     const products = await ProductModel.find({
-      category: { $regex: category, $options: "i" },
+      // category: { $regex: category, $options: "i" },
+      category: category,
     });
 
     return new Response(JSON.stringify(products), {

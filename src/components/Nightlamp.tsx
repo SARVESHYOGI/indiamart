@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import {
   Card,
@@ -8,49 +9,34 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Image from "next/image";
+import Link from "next/link";
+import useSWR from "swr";
+import axios from "axios";
 
-const electronics = [
-  {
-    name: "Laptop",
-    price: 1000,
-    image: "/p1.png",
-  },
-  {
-    name: "Smartphone",
-    price: 800,
-    image: "/p2.png",
-  },
-  {
-    name: "Tablet",
-    price: 600,
-    image: "/p3.png",
-  },
-  {
-    name: "Laptop",
-    price: 1000,
-    image: "/p1.png",
-  },
-  {
-    name: "Smartphone",
-    price: 800,
-    image: "/p2.png",
-  },
-  {
-    name: "Tablet",
-    price: 600,
-    image: "/p3.png",
-  },
-];
 function Nightlamp() {
+  const fetcher = (url: string) => axios.get(url).then((res) => res.data);
+  interface LampItem {
+    _id: string;
+    name: string;
+    price: number;
+    images: string[];
+  }
+
+  const {
+    data: lamp = [],
+    error,
+    isLoading,
+  } = useSWR<LampItem[]>("/api/products/nightlamp", fetcher);
+
   return (
     <div>
       {" "}
       <div className="flex flex-col items-center justify-center w-[70%] mx-auto my-2">
         <h1 className="text-2xl font-bold mb-4">Nightlamp</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-          {electronics.map((item) => {
+          {lamp.map((item) => {
             return (
-              <>
+              <Link href={`/products/${item._id}`} key={item._id}>
                 <Card key={item.name}>
                   <CardHeader>
                     <CardTitle>{item.name}</CardTitle>
@@ -58,7 +44,7 @@ function Nightlamp() {
                   </CardHeader>
                   <CardContent>
                     <Image
-                      src={item.image}
+                      src={item.images[0]}
                       width={300}
                       height={100}
                       alt={item.name}
@@ -68,7 +54,7 @@ function Nightlamp() {
                     <p>Card Footer</p>
                   </CardFooter>
                 </Card>
-              </>
+              </Link>
             );
           })}
         </div>

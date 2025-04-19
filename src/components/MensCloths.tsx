@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import {
   Card,
@@ -8,41 +9,24 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Image from "next/image";
-
-const Menscloths = [
-  {
-    name: "Laptop",
-    price: 1000,
-    image: "/p1.png",
-  },
-  {
-    name: "Smartphone",
-    price: 800,
-    image: "/p2.png",
-  },
-  {
-    name: "Tablet",
-    price: 600,
-    image: "/p3.png",
-  },
-  {
-    name: "Laptop",
-    price: 1000,
-    image: "/p1.png",
-  },
-  {
-    name: "Smartphone",
-    price: 800,
-    image: "/p2.png",
-  },
-  {
-    name: "Tablet",
-    price: 600,
-    image: "/p3.png",
-  },
-];
+import Link from "next/link";
+import useSWR from "swr";
+import axios from "axios";
 
 function MensCloths() {
+  const fetcher = (url: string) => axios.get(url).then((res) => res.data);
+  const {
+    data: Menscloths = [],
+    isLoading,
+    error,
+  } = useSWR<Mensclothsitem[]>("/api/products/menware", fetcher);
+  interface Mensclothsitem {
+    _id: string;
+    name: string;
+    price: number;
+    images: string[];
+  }
+
   return (
     <div>
       <div className="flex flex-col items-center justify-center w-[70%] mx-auto my-2">
@@ -50,7 +34,7 @@ function MensCloths() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {Menscloths.map((item) => {
             return (
-              <>
+              <Link href={`/products/${item._id}`} key={item._id}>
                 <Card key={item.name}>
                   <CardHeader>
                     <CardTitle>{item.name}</CardTitle>
@@ -58,7 +42,7 @@ function MensCloths() {
                   </CardHeader>
                   <CardContent>
                     <Image
-                      src={item.image}
+                      src={item.images[0]}
                       width={300}
                       height={100}
                       alt={item.name}
@@ -68,7 +52,7 @@ function MensCloths() {
                     <p>Card Footer</p>
                   </CardFooter>
                 </Card>
-              </>
+              </Link>
             );
           })}
         </div>

@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import {
   Card,
@@ -9,39 +10,25 @@ import {
 } from "@/components/ui/card";
 import Image from "next/image";
 
-const foot = [
-  {
-    name: "Laptop",
-    price: 1000,
-    image: "/p1.png",
-  },
-  {
-    name: "Smartphone",
-    price: 800,
-    image: "/p2.png",
-  },
-  {
-    name: "Tablet",
-    price: 600,
-    image: "/p3.png",
-  },
-  {
-    name: "Laptop",
-    price: 1000,
-    image: "/p1.png",
-  },
-  {
-    name: "Smartphone",
-    price: 800,
-    image: "/p2.png",
-  },
-  {
-    name: "Tablet",
-    price: 600,
-    image: "/p3.png",
-  },
-];
+import axios from "axios";
+import { useState } from "react";
+import Link from "next/link";
+import useSWR from "swr";
+
 function Footware() {
+  interface FootItem {
+    _id: string;
+    name: string;
+    price: number;
+    images: string[];
+  }
+  const fetcher = (url: string) => axios.get(url).then((res) => res.data);
+  const {
+    data: foot = [],
+    error,
+    isLoading,
+  } = useSWR<FootItem[]>("/api/products/footware", fetcher);
+
   return (
     <div>
       {" "}
@@ -50,15 +37,15 @@ function Footware() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {foot.map((item) => {
             return (
-              <>
-                <Card key={item.name}>
+              <Link href={`/products/${item._id}`} key={item._id}>
+                <Card key={item._id}>
                   <CardHeader>
                     <CardTitle>{item.name}</CardTitle>
                     <CardDescription>Price: ${item.price}</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <Image
-                      src={item.image}
+                      src={item.images[0]}
                       width={300}
                       height={100}
                       alt={item.name}
@@ -68,7 +55,7 @@ function Footware() {
                     <p>Card Footer</p>
                   </CardFooter>
                 </Card>
-              </>
+              </Link>
             );
           })}
         </div>

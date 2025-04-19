@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import {
   Card,
@@ -8,40 +9,25 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Image from "next/image";
+import Link from "next/link";
+import axios from "axios";
+import useSWR from "swr";
 
-const women = [
-  {
-    name: "Laptop",
-    price: 1000,
-    image: "/p1.png",
-  },
-  {
-    name: "Smartphone",
-    price: 800,
-    image: "/p2.png",
-  },
-  {
-    name: "Tablet",
-    price: 600,
-    image: "/p3.png",
-  },
-  {
-    name: "Laptop",
-    price: 1000,
-    image: "/p1.png",
-  },
-  {
-    name: "Smartphone",
-    price: 800,
-    image: "/p2.png",
-  },
-  {
-    name: "Tablet",
-    price: 600,
-    image: "/p3.png",
-  },
-];
 function WomenCloths() {
+  interface WomenItem {
+    _id: string;
+    name: string;
+    price: number;
+    images: string[];
+  }
+  const fetcher = (url: string) => axios.get(url).then((res) => res.data);
+
+  const {
+    data: women = [],
+    error,
+    isLoading,
+  } = useSWR<WomenItem[]>("/api/products/womenware", fetcher);
+
   return (
     <div>
       {" "}
@@ -50,7 +36,7 @@ function WomenCloths() {
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           {women.map((item) => {
             return (
-              <>
+              <Link href={`/products/${item._id}`} key={item._id}>
                 <Card key={item.name}>
                   <CardHeader>
                     <CardTitle>{item.name}</CardTitle>
@@ -58,7 +44,7 @@ function WomenCloths() {
                   </CardHeader>
                   <CardContent>
                     <Image
-                      src={item.image}
+                      src={item.images[0]}
                       width={300}
                       height={100}
                       alt={item.name}
@@ -68,7 +54,7 @@ function WomenCloths() {
                     <p>Card Footer</p>
                   </CardFooter>
                 </Card>
-              </>
+              </Link>
             );
           })}
         </div>
