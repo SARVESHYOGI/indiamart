@@ -11,7 +11,7 @@ import { useSession } from "next-auth/react";
 
 function Navbar() {
   const handleclick = () => {
-    signOut({ callbackUrl: "/login" });
+    signOut({ callbackUrl: "/auth/login" });
   };
 
   const { data: session } = useSession();

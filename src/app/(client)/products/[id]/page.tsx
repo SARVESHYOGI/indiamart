@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import Link from "next/link";
 function page({ params }: { params: { id: string } }) {
   const [selectedImage, setSelectedImage] = useState(0);
   interface ProductItem {
@@ -238,8 +239,10 @@ function page({ params }: { params: { id: string } }) {
                     </div>
                   </div>
                   <DialogFooter>
-                    <Button type="submit">proceed to order</Button>
-                    <span>you will redirect to the merchent store</span>
+                    <Link href={`payment/${params.id}`}>
+                      <Button type="submit">proceed to order</Button>
+                      <span>you will redirect to the merchent store</span>
+                    </Link>
                   </DialogFooter>
                 </div>
               </DialogContent>
