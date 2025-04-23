@@ -13,9 +13,9 @@ import { useRouter } from "next/navigation";
 function Navbar() {
   const [searchQuery, setSearchQuery] = useState("");
   const router = useRouter();
-  const handleclick = () => {
-    signOut({ callbackUrl: "/auth/login" });
-  };
+  // const handleclick = () => {
+  //   signOut({ callbackUrl: "/auth/login" });
+  // };
 
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -62,9 +62,9 @@ function Navbar() {
         <div>
           <Button>Bulk Requirement</Button>
         </div>
-        <div>
+        {/* <div>
           <Button onClick={handleclick}>Signout</Button>
-        </div>
+        </div> */}
       </div>
       <Separator className="" />
     </div>

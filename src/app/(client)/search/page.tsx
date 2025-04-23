@@ -15,9 +15,9 @@ import { notFound } from "next/navigation";
 export default async function SearchPage({
   searchParams,
 }: {
-  searchParams: { q: string };
+  searchParams: Promise<{ q: string }>;
 }) {
-  const q = searchParams.q;
+  const { q } = await searchParams;
 
   if (!q) return notFound();
 
