@@ -43,6 +43,7 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ productId }) => {
   const [product, setProduct] = useState<any>(null);
   const [item, setItem] = React.useState<ProductItem | null>(null);
   const [selectedImage, setSelectedImage] = useState(0);
+  const [moreproduct, setMoreproduct] = useState<ProductItem[] | null>(null);
 
   //   const item = {
   //     _id: "68031fef901260a96193f02f",
@@ -68,6 +69,10 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ productId }) => {
     try {
       const response = await axios.get(`/api/products/id/${productId}`);
       const data = response.data;
+      const catagory = data.category;
+      const moreproductresponse = await axios.get(`/api/products/${catagory}`);
+      const moreProductsData = moreproductresponse.data;
+      setMoreproduct(moreProductsData);
       console.log(data);
       setItem(data);
     } catch (error) {
@@ -278,6 +283,26 @@ const ProductDetails: React.FC<ProductDetailsProps> = ({ productId }) => {
               </li>
             </ul>
           </div>
+        </div>
+      </div>
+      <div>
+        <h2 className="text-2xl font-semibold mt-8 mb-4">More Products</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          {moreproduct?.map((product) => (
+            <Card key={product._id} className="w-full h-full">
+              <CardContent className="flex flex-col items-center">
+                <Image
+                  src={product.images[0] || "/placeholder.svg"}
+                  alt={product.name}
+                  width={200}
+                  height={200}
+                  className="w-full h-auto object-cover aspect-square"
+                />
+                <h3 className="text-lg font-semibold mt-2">{product.name}</h3>
+                <p className="text-gray-600">${product.price}.00</p>
+              </CardContent>
+            </Card>
+          ))}
         </div>
       </div>
     </div>

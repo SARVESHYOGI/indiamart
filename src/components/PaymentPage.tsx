@@ -81,10 +81,10 @@ const PaymentPage: React.FC<PaymentDetailsProps> = ({ payId }) => {
         </div>
       </header> */}
 
-      <main className="container py-6 px-4 md:py-10 md:px-6">
-        <div className="grid md:grid-cols-[1fr_400px] gap-8">
+      <main className="container py-6 px-4 md:py-10 md:px-6 w-[75%] mx-auto">
+        <div className="flex gap-4 ">
           {/* Checkout Form */}
-          <div className="space-y-8">
+          <div className="space-y-8 w-1/2">
             <div className="flex items-center justify-between md:hidden">
               <button
                 className="flex items-center text-sm font-medium"
@@ -272,27 +272,11 @@ const PaymentPage: React.FC<PaymentDetailsProps> = ({ payId }) => {
           </div>
 
           {/* Order Summary (Desktop) */}
-          <div className="hidden md:block">
+          <div className="hidden md:block w-1/2 sticky top-0 h-screen overflow-y-auto border-l pl-6 pr-4 pt-6 ">
             <OrderSummary item={item} />
           </div>
         </div>
       </main>
-
-      <footer className="border-t py-6 text-center text-sm text-gray-500">
-        <div className="container">
-          <div className="flex justify-center space-x-4 mb-4">
-            <Link href="#" className="hover:text-gray-800">
-              Refund policy
-            </Link>
-            <Link href="#" className="hover:text-gray-800">
-              Privacy policy
-            </Link>
-            <Link href="#" className="hover:text-gray-800">
-              Terms of service
-            </Link>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 };
@@ -312,7 +296,7 @@ function OrderSummary({ item }: { item?: ProductItem | null }) {
           <div className="flex items-start space-x-4">
             <div className="relative h-16 w-16 overflow-hidden rounded-md bg-gray-100">
               <Image
-                src="/placeholder.svg?height=64&width=64"
+                src={item?.images[0] || "/placeholder.svg"}
                 alt="Product image"
                 fill
                 className="object-cover"

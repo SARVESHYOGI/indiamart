@@ -35,27 +35,32 @@ function Navbar() {
   console.log(session?.user?._id);
 
   return (
-    <div className="bg-gray-100">
+    <div className="sticky top-0 bg-white z-10 border-b-2 py-3 border-gray-300 ">
       <div className="w-[75%] mx-auto flex h-16 items-center justify-between  text-white">
         <div className="bg-white rounded-full p-2">
           <Link href="/">
             <Image src="/logo.png" alt="Description" width={200} height={200} />
           </Link>
         </div>
-        <div className="flex items-center w-[60%]">
+        <div className="flex items-center w-[60%]  text-black border-1 rounded-xl border-black h-full ">
+          <div className="border-r px-1">Shop</div>
           <form
             onSubmit={handleSearch}
-            className="flex items-center w-[60%] mx-auto"
+            className="flex items-center w-[100%] mx-auto h-full"
           >
             <Input
               type="text"
-              placeholder="Search products..."
+              placeholder="What are you looking for..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="outline-0 text-black"
+              className="flex-grow border-0 outline-none ring-0 focus:outline-none focus:ring-0 focus-visible:ring-0 bg-transparent text-black"
             />
-            <Button type="submit">
-              <Search />
+            <Button
+              type="submit"
+              className="bg-teal-800 hover:bg-teal-900 hover:cursor-pointer rounded-none rounded-r-xl px-4 flex gap-2 items-center justify-center h-full"
+            >
+              <Search className="w-4 h-4" />
+              <span>Search</span>
             </Button>
           </form>
         </div>
@@ -66,7 +71,6 @@ function Navbar() {
           <Button onClick={handleclick}>Signout</Button>
         </div> */}
       </div>
-      <Separator className="" />
     </div>
   );
 }

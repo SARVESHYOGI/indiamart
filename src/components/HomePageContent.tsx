@@ -61,12 +61,14 @@ function HomePageContent() {
     objectFit: "contain",
     objectPosition: "center",
     borderRadius: "50%",
-    backgroundColor: "#f0f000",
+    backgroundColor: "",
     padding: "0.5rem",
+    border: "1px solid #ccc",
+    boxShadow: "0 4px 8px rgba(0, 0, 0, 0.2)",
   };
   return (
     <div>
-      <div className="w-[75%] mx-auto flex flex-wrap items-center justify-between bg-gray-100 p-1">
+      <div className="w-[75%] mx-auto flex flex-wrap items-center justify-between  p-1">
         {" "}
         {/* Added p-4 and flex-wrap */}
         {category.map((item) => (
@@ -99,7 +101,7 @@ function HomePageContent() {
           <div className="text-xl md:text-3xl font-semibold text-blue-800 tracking-wide">
             Stay Cool This Summer
           </div>
-          <div className="w-1/2 flex flex-wrap gap-4 rounded-md p-4 shadow-inner">
+          <div className="w-1/2 flex flex-wrap gap-4 rounded-md p-4 ">
             {poster.map((item) => (
               <div
                 key={item.name}
@@ -113,8 +115,8 @@ function HomePageContent() {
                     <Image
                       src={item.image}
                       alt={item.name}
-                      layout="fill"
-                      objectFit="cover"
+                      fill
+                      className="object-cover"
                     />
                   </div>
                   <span className="text-xs md:text-sm text-blue-700 mt-2 font-medium">
